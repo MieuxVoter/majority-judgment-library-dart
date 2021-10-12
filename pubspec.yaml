@@ -1,0 +1,14 @@
+name: majority_judgment
+version: 0.1.0
+description: Resolve Majority Judgment polls, to get the rank of each proposal.  Supports billions of judges.
+homepage: https://github.com/MieuxVoter/majority-judgment-library-dart
+
+environment:
+  sdk: '>=2.12.0 <3.0.0'
+
+dependencies: 
+  yaml: ^3.1.0
+  
+dev_dependencies: 
+  lints: ^1.0.1
+  test: ^1.18.2

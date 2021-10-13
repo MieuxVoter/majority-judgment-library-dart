@@ -7,7 +7,6 @@ abstract class Resolver {
   PollResult resolve(PollTally tally);
 }
 
-
 /// See https://en.wikipedia.org/wiki/Majority_judgment
 class MajorityJudgmentResolver implements Resolver {
   /// When both adhesion and contestation groups are of equal size,

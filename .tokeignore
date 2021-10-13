@@ -1,0 +1,11 @@
+# Files ignored by the Lines Of Code (LOC) counter badge
+LICENSE
+.github/*
+.gitignore
+.packages
+test/*
+*.md
+*.lock
+*.yml
+*.yaml
+*.json

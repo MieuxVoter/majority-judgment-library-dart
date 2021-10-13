@@ -2,6 +2,8 @@
 // Provides everything but the score and rank, and is used to compute them.
 import 'package:majority_judgment/majority_judgment.dart';
 
+/// Analysis of the tally of az single Proposal.
+/// Does not include the score and rank, this is an intermediate data structure.
 class Analysis {
   late int totalSize;
   late int medianGrade;
@@ -27,6 +29,8 @@ class Analysis {
     contestationGroupSize = 0;
   }
 
+  /// Analyze the proposal tally.
+  /// Mutates the instance of the Analysis.
   void run(ProposalTally proposalTally, bool favorContestation) {
     reset();
 

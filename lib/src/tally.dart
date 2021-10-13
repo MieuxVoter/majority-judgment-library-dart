@@ -1,9 +1,9 @@
 import 'dart:math' show max;
 
-// Tally of a single proposal, that is the amount of judgments they received
-// for each grade.  This class is basically a wrapper around a list of ints.
+/// Tally of a single proposal, that is the amount of judgments they received
+/// for each grade.  This class is basically a wrapper around a list of ints.
 class ProposalTally {
-  // For each grade from "worst" to "best", the amount of judgments received.
+  /// For each grade from "worst" to "best", the amount of judgments received.
   List<int> gradesTallies;
 
   ProposalTally(this.gradesTallies);
@@ -12,18 +12,18 @@ class ProposalTally {
     return ProposalTally(List.from(gradesTallies));
   }
 
-  // Count all the judgments received by the proposal, across all grades.
+  /// Count all the judgments received by the proposal, across all grades.
   int countJudgments() {
     return gradesTallies
         .reduce((total, gradeJudgments) => total + gradeJudgments);
   }
 
-  // Count the available grades in the grading scale.  Usually around 7.
+  /// Count the available grades in the grading scale.  Usually around 7.
   int countAvailableGrades() {
     return gradesTallies.length;
   }
 
-  // This mutates the tally.  Used in score calculus.
+  /// This mutates the tally.  Used in score calculus.
   ProposalTally regradeJudgments(int fromGrade, int intoGrade) {
     gradesTallies[intoGrade] += gradesTallies[fromGrade];
     gradesTallies[fromGrade] = 0;
@@ -31,19 +31,19 @@ class ProposalTally {
   }
 }
 
-// The main input of this package.
-// This holds the amounts of judgments received for each grade,
-// (from "worst" grade to "best" grade), for each proposal.
-// Create an instance of this and provide it to the Deliberator.
+/// The main input of this package.
+/// This holds the amounts of judgments received for each grade,
+/// (from "worst" grade to "best" grade), for each proposal.
+/// Create an instance of this and provide it to the Deliberator.
 class PollTally {
-  // Amount of judgments received for each grade, for each proposal.
-  // Grades are expected to be tallied from "worst" grade to "best" grade.
-  // Example value:
-  // [
-  //   [1, 4, 5, 2, 4, 4, 2],  // Proposal A
-  //   [0, 1, 4, 5, 3, 4, 1],  // Proposal B
-  //   …
-  // ]
+  /// Amount of judgments received for each grade, for each proposal.
+  /// Grades are expected to be tallied from "worst" grade to "best" grade.
+  /// Example value:
+  /// [
+  ///   [1, 4, 5, 2, 4, 4, 2],  // Proposal A
+  ///   [0, 1, 4, 5, 3, 4, 1],  // Proposal B
+  ///   …
+  /// ]
   List<ProposalTally> proposals = [];
 
   PollTally(dynamic proposals) {
@@ -64,10 +64,10 @@ class PollTally {
     }
   }
 
-  // Balance your proposal tallies
-  // so that they all hold the same total amount of judgments.
-  // This adds judgments of the specified grade (default: "worst" grade),
-  // as many as needed (if any) to each proposal to balance the tallies.
+  /// Balance your proposal tallies
+  /// so that they all hold the same total amount of judgments.
+  /// This adds judgments of the specified grade (default: "worst" grade),
+  /// as many as needed (if any) to each proposal to balance the tallies.
   PollTally balanceWithGrade({int grade = 0}) {
     final amountOfProposals = proposals.length;
     final amountsOfParticipants = List.filled(amountOfProposals, 0);

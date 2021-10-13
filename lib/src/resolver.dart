@@ -2,18 +2,21 @@ import 'package:majority_judgment/src/analysis.dart';
 import 'package:majority_judgment/src/result.dart';
 import 'package:majority_judgment/src/tally.dart';
 
+/// Interface for the various Resolvers.  Maybe over-engineering.
 abstract class Resolver {
   PollResult resolve(PollTally tally);
 }
 
+
+/// See https://en.wikipedia.org/wiki/Majority_judgment
 class MajorityJudgmentResolver implements Resolver {
-  // When both adhesion and contestation groups are of equal size,
-  // which one will define the second median grade ?
-  // We favor contestation by default, for a bunch of reasons: precaution,
-  // conservatism, emotional investment, default grade as the "worst" grade…
-  // Set this to false to favor adhesion instead.
-  // Note that this rule is important in low-participation polls, [cit. needed]
-  // but quickly wanes as participation rises.
+  /// When both adhesion and contestation groups are of equal size,
+  /// which one will define the second median grade ?
+  /// We favor contestation by default, for a bunch of reasons: precaution,
+  /// conservatism, emotional investment, default grade as the "worst" grade…
+  /// Set this to false to favor adhesion instead.
+  /// Note that this rule is important in low-participation polls, [cit. needed]
+  /// but quickly wanes as participation rises.
   bool favorContestation = true;
 
   @override
@@ -62,6 +65,7 @@ Balance your tally first, perhaps using a PollTally#balanceWith…() method?''')
     return PollResult(proposalsResults, sortedProposalsResults);
   }
 
+  /// Score = Complete Majority Value
   String computeScore(ProposalTally tally) {
     var score = '';
 
@@ -93,6 +97,7 @@ Balance your tally first, perhaps using a PollTally#balanceWith…() method?''')
     return score;
   }
 
+  /// Count the digits (base 10) of the provided integer.
   int countDigits(int amount) {
     if (0 == amount) {
       return 1;

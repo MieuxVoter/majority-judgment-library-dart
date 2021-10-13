@@ -17,6 +17,8 @@ This Dart package helps to resolve polls using [Majority Judgment](https://fr.wi
 - Configure whether to favor _adhesion_ or _contestation_ (default)
 - Balance proposal tallies using a static default grade or the median grade[^median_todo]
 - Room for Central Judgment and Usual Judgment
+- Unit-tested (run `dart test`)
+
 
 [^median_todo]: TODO, see #1 ; it's a good first issue if you want to contribute
 

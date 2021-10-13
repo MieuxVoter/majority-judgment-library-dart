@@ -5,19 +5,20 @@
 [![Build Status](https://img.shields.io/github/workflow/status/MieuxVoter/majority-judgment-library-dart/Dart?style=for-the-badge)](https://github.com/MieuxVoter/majority-judgment-library-dart/actions/workflows/dart.yml)
 [![Code Quality](https://img.shields.io/codefactor/grade/github/MieuxVoter/majority-judgment-library-dart?style=for-the-badge)](https://www.codefactor.io/repository/github/mieuxvoter/majority-judgment-library-dart)
 ![LoC](https://img.shields.io/tokei/lines/github/MieuxVoter/majority-judgment-library-dart?style=for-the-badge)
-[![Discord Chat https://discord.gg/rAAQG9S](https://img.shields.io/discord/705322981102190593.svg?style=for-the-badge)](https://discord.gg/rAAQG9S)
+[![Discord Chat](https://img.shields.io/discord/705322981102190593.svg?style=for-the-badge)](https://discord.gg/rAAQG9S)
 
 
-This package helps to resolve polls using [Majority Judgment](https://fr.wikipedia.org/wiki/Jugement_majoritaire).
+This Dart package helps to resolve polls using [Majority Judgment](https://fr.wikipedia.org/wiki/Jugement_majoritaire).
 
 
 ## Features
 
-- Efficient algorithm, scales well to billions of participants
+- Efficient Majority Judgment algorithm, scales well to billions of participants
 - Configure whether to favor _adhesion_ or _contestation_ (default)
-- Balance proposal tallies using a static default grade or the median grade
+- Balance proposal tallies using a static default grade or the median grade[^median_todo]
 - Room for Central Judgment and Usual Judgment
 
+[^median_todo]: TODO, see #1 ; it's a good first issue if you want to contribute
 
 ## Get started
 
@@ -49,7 +50,7 @@ void main() {
 
 ## Contribute
 
-Usual git flow: clone, branch, merge request.
+Usual git flow: clone, tinker, request a merge.
 
 
 ## Authors

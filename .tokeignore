@@ -4,6 +4,7 @@ LICENSE
 .gitignore
 .packages
 test/*
+example/*
 *.md
 *.lock
 *.yml

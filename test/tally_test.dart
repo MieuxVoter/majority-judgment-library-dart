@@ -18,7 +18,7 @@ void main() {
         <int>[0, 1, 0, 7, 0],  // Proposal A
         <int>[1, 0, 2, 0, 9],  // Proposal B
       ];
-      final tally = PollTally(tallies).normalizeWithStaticDefault();
+      final tally = PollTally(tallies).balanceWithGrade();
       // expect(tally.proposals, equals(<List<int>>[
       //   <int>[4, 1, 0, 7, 0],  // Proposal A
       //   <int>[1, 0, 2, 0, 9],  // Proposal B

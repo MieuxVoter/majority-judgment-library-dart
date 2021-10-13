@@ -14,7 +14,8 @@ class ProposalTally {
 
   // Count all the judgments received by the proposal, across all grades.
   int countJudgments() {
-    return gradesTallies.reduce((total, gradeJudgments) => total + gradeJudgments);
+    return gradesTallies
+        .reduce((total, gradeJudgments) => total + gradeJudgments);
   }
 
   // Count the available grades in the grading scale.  Usually around 7.
@@ -35,7 +36,6 @@ class ProposalTally {
 // (from "worst" grade to "best" grade), for each proposal.
 // Create an instance of this and provide it to the Deliberator.
 class PollTally {
-
   // Amount of judgments received for each grade, for each proposal.
   // Grades are expected to be tallied from "worst" grade to "best" grade.
   // Example value:
@@ -64,20 +64,24 @@ class PollTally {
     }
   }
 
-  PollTally normalizeWithStaticDefault({int grade = 0}) {
+  // Balance your proposal tallies
+  // so that they all hold the same total amount of judgments.
+  // This adds judgments of the specified grade (default: "worst" grade),
+  // as many as needed (if any) to each proposal to balance the tallies.
+  PollTally balanceWithGrade({int grade = 0}) {
     final amountOfProposals = proposals.length;
     final amountsOfParticipants = List.filled(amountOfProposals, 0);
     var maxAmountOfParticipants = 0;
-    for (var i = 0 ; i < amountOfProposals ; i++) {
+    for (var i = 0; i < amountOfProposals; i++) {
       final proposalTally = proposals[i];
       final amountOfParticipants = proposalTally.countJudgments();
       amountsOfParticipants[i] = amountOfParticipants;
       maxAmountOfParticipants = max(
-          amountOfParticipants,
-          maxAmountOfParticipants,
+        amountOfParticipants,
+        maxAmountOfParticipants,
       );
     }
-    for (var i = 0 ; i < amountOfProposals ; i++) {
+    for (var i = 0; i < amountOfProposals; i++) {
       final proposalTally = proposals[i];
       final missingAmount = maxAmountOfParticipants - amountsOfParticipants[i];
       proposalTally.gradesTallies[grade] += missingAmount;
@@ -85,5 +89,9 @@ class PollTally {
 
     return this;
   }
-}
 
+  @Deprecated('Use balanceWithGrade() instead')
+  PollTally normalizeWithStaticDefault({int grade = 0}) {
+    return balanceWithGrade(grade: grade);
+  }
+}

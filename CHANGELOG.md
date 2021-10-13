@@ -1,3 +1,7 @@
+## 0.1.3
+
+* Document API according to Dart doc formatting
+
 ## 0.1.2
 
 * Add `PollTally#balanceWithGrade()` and deprecate the other method.

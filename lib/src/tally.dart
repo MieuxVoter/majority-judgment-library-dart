@@ -1,5 +1,7 @@
 import 'dart:math' show max;
 
+import 'package:majority_judgment/src/analysis.dart';
+
 /// Tally of a single proposal, that is the amount of judgments they received
 /// for each grade.  This class is basically a wrapper around a list of ints.
 class ProposalTally {
@@ -46,6 +48,15 @@ class PollTally {
   /// ]
   List<ProposalTally> proposals = [];
 
+  /// Create a Poll Tally from a List<List<int>>, which is essentially a list
+  /// of the merit profiles of your proposals.
+  /// Example value:
+  ///   [
+  ///     [1, 4, 5, 2, 4, 4, 2],  // Proposal A  ("worst" grade to "best" grade)
+  ///     [0, 1, 4, 5, 3, 4, 1],  // Proposal B  (idem)
+  ///     …
+  ///   ]
+  /// Provide this to a Resolver, like MajorityJudgmentResolver, to get ranks.
   PollTally(dynamic proposals) {
     if (proposals is Iterable) {
       for (final proposal in proposals) {
@@ -64,12 +75,48 @@ class PollTally {
     }
   }
 
-  /// Balance your proposal tallies
-  /// so that they all hold the same total amount of judgments.
+  /// Balance your proposal tallies so that they all hold the same total amount
+  /// of judgments, by filling the gaps with the specified grade.
   /// This adds judgments of the specified grade (default: "worst" grade),
   /// as many as needed (if any) to each proposal to balance the tallies.
   PollTally balanceWithGrade({int grade = 0}) {
     final amountOfProposals = proposals.length;
+    final missingAmounts = estimateMissingJudgments();
+    for (var i = 0; i < amountOfProposals; i++) {
+      final missingAmount = missingAmounts[i];
+      if (0 == missingAmount) continue;
+      proposals[i].gradesTallies[grade] += missingAmount;
+    }
+
+    return this;
+  }
+
+  /// Balance your proposal tallies so that they all hold the same total amount
+  /// of judgments, by filling the gaps with the majority|median grade.
+  /// This adds judgments of the median grade, as many as needed (if any)
+  /// to each proposal in order to balance the tallies.
+  PollTally balanceWithMedian() {
+    final amountOfProposals = proposals.length;
+    final missingAmounts = estimateMissingJudgments();
+    for (var i = 0; i < amountOfProposals; i++) {
+      final missingAmount = missingAmounts[i];
+      if (0 == missingAmount) continue;
+      final proposalTally = proposals[i];
+      final analysis = Analysis()..run(proposalTally, true);
+      // final analysis = Analysis.of(proposalTally, true);  // <= me like
+      proposalTally.gradesTallies[analysis.medianGrade] += missingAmount;
+    }
+
+    return this;
+  }
+
+  /// Internal?
+  /// Returns how many judgments are missing, for each proposal,
+  /// to get a balanced poll tally.
+  /// Can only return positive integers (0 is considered positive).
+  List<int> estimateMissingJudgments() {
+    final amountOfProposals = proposals.length;
+    final missingAmounts = List.filled(amountOfProposals, 0);
     final amountsOfParticipants = List.filled(amountOfProposals, 0);
     var maxAmountOfParticipants = 0;
     for (var i = 0; i < amountOfProposals; i++) {
@@ -82,12 +129,12 @@ class PollTally {
       );
     }
     for (var i = 0; i < amountOfProposals; i++) {
-      final proposalTally = proposals[i];
       final missingAmount = maxAmountOfParticipants - amountsOfParticipants[i];
-      proposalTally.gradesTallies[grade] += missingAmount;
+      assert(missingAmount >= 0);
+      missingAmounts[i] = missingAmount;
     }
 
-    return this;
+    return missingAmounts;
   }
 
   @Deprecated('Use balanceWithGrade() instead')

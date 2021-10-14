@@ -1,4 +1,3 @@
-
 import 'package:majority_judgment/majority_judgment.dart';
 import 'package:test/test.dart';
 
@@ -6,8 +5,8 @@ void main() {
   group('PollTally', () {
     test('Create a PollTally', () {
       final tallies = <List<int>>[
-        <int>[0, 1, 2, 4, 5],  // Proposal A
-        <int>[1, 0, 2, 0, 9],  // Proposal B
+        <int>[0, 1, 2, 4, 5], // Proposal A
+        <int>[1, 0, 2, 0, 9], // Proposal B
       ];
       final tally = PollTally(tallies);
       expect(tally, isNotNull);
@@ -15,8 +14,8 @@ void main() {
 
     test('Normalize a PollTally with a static default grade', () {
       final tallies = <List<int>>[
-        <int>[0, 1, 0, 7, 0],  // Proposal A
-        <int>[1, 0, 2, 0, 9],  // Proposal B
+        <int>[0, 1, 0, 7, 0], // Proposal A
+        <int>[1, 0, 2, 0, 9], // Proposal B
       ];
       final tally = PollTally(tallies).balanceWithGrade();
       // expect(tally.proposals, equals(<List<int>>[
@@ -36,5 +35,4 @@ void main() {
     //   );
     // });
   });
-
 }

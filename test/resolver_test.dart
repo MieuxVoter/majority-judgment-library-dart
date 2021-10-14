@@ -6,7 +6,6 @@ import 'package:yaml/yaml.dart';
 
 void main() {
   group('Majority Judgment Resolver', () {
-
     final testFile = File('test/majority-judgment-tests.yml');
     final testYaml = testFile.readAsStringSync();
     final testData = loadYaml(testYaml) as Map;
@@ -14,10 +13,24 @@ void main() {
     for (final datum in testData['tests']) {
       test(datum['name'], () {
         final datumTally = <ProposalTally>[];
-        for (final yamlTally in datum['tally']) {
-          datumTally.add(ProposalTally(yamlTally.cast<int>() as List<int>));
+        for (final YamlList yamlTally in datum['tally']) {
+          datumTally.add(ProposalTally(List.from(yamlTally.cast<int>())));
+          // datumTally.add(ProposalTally(yamlTally.cast<int>() as List<int>));
         }
         final pollTally = PollTally(datumTally);
+        if (datum['default_grade'] != null) {
+          if (datum['default_grade'] is int) {
+            pollTally.balanceWithGrade(grade: datum['default_grade'] as int);
+          } else if (datum['default_grade'] is String) {
+            if ('median' == datum['default_grade'] ||
+                'majority' == datum['default_grade']) {
+              pollTally.balanceWithMedian();
+            } else {
+              throw Exception('Unrecognized default grade:'
+                  ' `${datum['default_grade'] as String}\'.');
+            }
+          }
+        }
         final mj = MajorityJudgmentResolver();
         //mj.favorContestation = true;
         final result = mj.resolve(pollTally);

@@ -38,3 +38,23 @@ tests:
     ranks:
       - 1
       - 2
+  - name: Balance with a static grade
+    default_grade: 0
+    tally:
+      - [0, 0, 6]
+      - [0, 6, 5]
+      - [0, 18, 0]
+    ranks:
+      - 3
+      - 2
+      - 1
+  - name: Balance with the majority grade
+    default_grade: majority
+    tally:
+      - [0, 0, 6]
+      - [0, 6, 5]
+      - [0, 18, 0]
+    ranks:
+      - 1
+      - 2
+      - 3

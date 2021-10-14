@@ -1,6 +1,10 @@
+## 0.2.0
+
+* Add `PollTally#balanceWithMedian()` to balance a tally with thbe majority grade.
+
 ## 0.1.3
 
-* Document API according to Dart doc formatting
+* Document API according to Dart doc formatting.
 
 ## 0.1.2
 

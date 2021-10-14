@@ -66,7 +66,7 @@ Balance your tally first, perhaps using a PollTally#balanceWith…() method?''')
 
   /// Score = Complete Majority Value
   String computeScore(ProposalTally tally) {
-    var score = '';
+    var score = StringBuffer();
 
     final analysis = Analysis();
     final amountOfGrades = tally.countAvailableGrades();
@@ -78,14 +78,15 @@ Balance your tally first, perhaps using a PollTally#balanceWith…() method?''')
     for (var i = 0; i < amountOfGrades; i++) {
       analysis.run(mutatedTally, favorContestation);
 
-      score +=
-          analysis.medianGrade.toString().padLeft(amountOfDigitsForGrade, '0');
+      score.write(
+          analysis.medianGrade.toString().padLeft(amountOfDigitsForGrade, '0'));
 
       final adhesionScore = amountOfJudgments +
           analysis.secondGroupSize * analysis.secondGroupSign;
 
-      score +=
-          adhesionScore.toString().padLeft(amountOfDigitsForAdhesionScore, '0');
+      score.write(adhesionScore
+          .toString()
+          .padLeft(amountOfDigitsForAdhesionScore, '0'));
 
       mutatedTally.regradeJudgments(
         analysis.medianGrade,
@@ -93,7 +94,7 @@ Balance your tally first, perhaps using a PollTally#balanceWith…() method?''')
       );
     }
 
-    return score;
+    return score.toString();
   }
 
   /// Count the digits (base 10) of the provided integer.

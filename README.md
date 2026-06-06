@@ -2,10 +2,9 @@
 
 [![MIT](https://img.shields.io/github/license/MieuxVoter/majority-judgment-library-dart?style=for-the-badge)](LICENSE)
 [![Release](https://img.shields.io/github/v/release/MieuxVoter/majority-judgment-library-dart?include_prereleases&style=for-the-badge)](https://github.com/MieuxVoter/majority-judgment-library-dart/releases)
-[![Build Status](https://img.shields.io/github/workflow/status/MieuxVoter/majority-judgment-library-dart/Dart?style=for-the-badge)](https://github.com/MieuxVoter/majority-judgment-library-dart/actions/workflows/dart.yml)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/MieuxVoter/majority-judgment-library-dart/dart.yml?style=for-the-badge)](https://github.com/MieuxVoter/majority-judgment-library-dart/actions/workflows/dart.yml)
 [![Code Quality](https://img.shields.io/codefactor/grade/github/MieuxVoter/majority-judgment-library-dart?style=for-the-badge)](https://www.codefactor.io/repository/github/mieuxvoter/majority-judgment-library-dart)
-![LoC](https://img.shields.io/tokei/lines/github/MieuxVoter/majority-judgment-library-dart?style=for-the-badge)
-[![Discord Chat](https://img.shields.io/discord/705322981102190593.svg?style=for-the-badge)](https://discord.gg/rAAQG9S)
+[![Discord Chat](https://img.shields.io/discord/705322981102190593.svg?style=for-the-badge)](https://discord.gg/k9YRuZPSZs)
 
 
 This Dart package helps to resolve polls using [Majority Judgment](https://fr.wikipedia.org/wiki/Jugement_majoritaire).
